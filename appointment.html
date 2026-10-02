@@ -1,0 +1,455 @@
+```html
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>HealthCare - Patient Registration</title>
+    <link rel="stylesheet" href="style.css">
+
+    <style>
+
+        span {
+            color: red;
+            font-size: 14px;
+        }
+
+        input.error, select.error, textarea.error {
+            border: 2px solid red;
+        }
+
+        input.valid, select.valid, textarea.valid {
+            border: 2px solid green;
+        }
+
+        fieldset {
+            padding: 20px;
+        }
+
+    </style>
+</head>
+
+<body>
+
+<h1 align="center">HealthCare</h1>
+
+<p align="center">Your Health Is Our Priority</p>
+
+<hr>
+
+<nav align="center">
+    <a href="healthcare.html">Home</a> |
+    <a href="services.html">Services</a> |
+    <a href="doctors.html">Doctors</a> |
+    <a href="appointment.html">Appointment</a> |
+    <a href="tips.html">Health Tips</a>
+</nav>
+
+<hr>
+
+<h2 align="center">Patient Registration</h2>
+
+<form id="registrationForm">
+
+    <fieldset>
+
+        <legend>Patient Information</legend>
+
+        <label for="patientName">Patient Name:</label>
+        <input type="text" id="patientName" name="patientName">
+        <span id="nameError"></span>
+
+        <br><br>
+
+        <label for="mobile">Mobile Number:</label>
+        <input type="text" id="mobile" name="mobile">
+        <span id="mobileError"></span>
+
+        <br><br>
+
+        <label for="email">Email:</label>
+        <input type="text" id="email" name="email">
+        <span id="emailError"></span>
+
+        <br><br>
+
+        <label for="dob">Date of Birth:</label>
+        <input type="date" id="dob" name="dob">
+        <span id="dobError"></span>
+
+        <br><br>
+
+        <label>Gender:</label>
+
+        <input type="radio" id="male" name="gender" value="Male">
+        <label for="male">Male</label>
+
+        <input type="radio" id="female" name="gender" value="Female">
+        <label for="female">Female</label>
+
+        <input type="radio" id="other" name="gender" value="Other">
+        <label for="other">Other</label>
+
+        <span id="genderError"></span>
+
+        <br><br>
+
+        <label for="address">Address:</label>
+
+        <textarea id="address" name="address" rows="4" cols="30"></textarea>
+
+        <span id="addressError"></span>
+
+        <br><br>
+
+        <label for="bloodGroup">Blood Group:</label>
+
+        <select id="bloodGroup" name="bloodGroup">
+
+            <option value="">Select Blood Group</option>
+            <option value="A+">A+</option>
+            <option value="A-">A-</option>
+            <option value="B+">B+</option>
+            <option value="B-">B-</option>
+            <option value="AB+">AB+</option>
+            <option value="AB-">AB-</option>
+            <option value="O+">O+</option>
+            <option value="O-">O-</option>
+
+        </select>
+
+        <span id="bloodError"></span>
+
+        <br><br>
+
+        <label for="department">Department / Appointment Type:</label>
+
+        <select id="department" name="department">
+
+            <option value="">Select Department</option>
+            <option value="General Medicine">General Medicine</option>
+            <option value="Cardiology">Cardiology</option>
+            <option value="Dental">Dental</option>
+            <option value="Dermatology">Dermatology</option>
+            <option value="Orthopedics">Orthopedics</option>
+
+        </select>
+
+        <span id="departmentError"></span>
+
+        <br><br>
+
+        <label for="registrationDate">Registration Date:</label>
+
+        <input type="date" id="registrationDate" name="registrationDate">
+
+        <span id="registrationError"></span>
+
+        <br><br>
+
+        <input type="submit" value="Register">
+
+        <input type="reset" value="Reset" id="resetButton">
+
+    </fieldset>
+
+</form>
+
+<hr>
+
+<footer align="center">
+
+    <p><b>HealthCare Website</b></p>
+
+    <p>Student Project - 2nd Year B.Tech</p>
+
+    <p>© 2026 HealthCare</p>
+
+</footer>
+
+
+<script>
+
+let form = document.getElementById("registrationForm");
+
+
+form.addEventListener("submit", function(event) {
+
+    event.preventDefault();
+
+    let valid = true;
+
+    let name = document.getElementById("patientName").value.trim();
+    let mobile = document.getElementById("mobile").value.trim();
+    let email = document.getElementById("email").value.trim();
+    let dob = document.getElementById("dob").value;
+    let address = document.getElementById("address").value.trim();
+    let blood = document.getElementById("bloodGroup").value;
+    let department = document.getElementById("department").value;
+    let registrationDate = document.getElementById("registrationDate").value;
+    let gender = document.querySelector('input[name="gender"]:checked');
+
+
+    document.querySelectorAll("span").forEach(function(span) {
+        span.innerHTML = "";
+    });
+
+
+    document.querySelectorAll("input, textarea, select").forEach(function(field) {
+        field.classList.remove("error");
+        field.classList.remove("valid");
+    });
+
+
+    if (name === "") {
+
+        document.getElementById("nameError").innerHTML =
+        " Please enter patient name";
+
+        document.getElementById("patientName").classList.add("error");
+
+        valid = false;
+
+    }
+
+    else if (!/^[A-Za-z ]+$/.test(name)) {
+
+        document.getElementById("nameError").innerHTML =
+        " Name should contain alphabets and spaces only";
+
+        document.getElementById("patientName").classList.add("error");
+
+        valid = false;
+
+    }
+
+    else {
+
+        document.getElementById("patientName").classList.add("valid");
+
+    }
+
+
+    if (mobile === "") {
+
+        document.getElementById("mobileError").innerHTML =
+        " Please enter mobile number";
+
+        document.getElementById("mobile").classList.add("error");
+
+        valid = false;
+
+    }
+
+    else if (!/^[6-9][0-9]{9}$/.test(mobile)) {
+
+        document.getElementById("mobileError").innerHTML =
+        " Enter valid 10-digit Indian mobile number";
+
+        document.getElementById("mobile").classList.add("error");
+
+        valid = false;
+
+    }
+
+    else {
+
+        document.getElementById("mobile").classList.add("valid");
+
+    }
+
+
+    if (email === "") {
+
+        document.getElementById("emailError").innerHTML =
+        " Please enter email";
+
+        document.getElementById("email").classList.add("error");
+
+        valid = false;
+
+    }
+
+    else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+
+        document.getElementById("emailError").innerHTML =
+        " Enter valid email address";
+
+        document.getElementById("email").classList.add("error");
+
+        valid = false;
+
+    }
+
+    else {
+
+        document.getElementById("email").classList.add("valid");
+
+    }
+
+
+    let today = new Date().toISOString().split("T")[0];
+
+
+    if (dob === "") {
+
+        document.getElementById("dobError").innerHTML =
+        " Please select date of birth";
+
+        document.getElementById("dob").classList.add("error");
+
+        valid = false;
+
+    }
+
+    else if (dob > today) {
+
+        document.getElementById("dobError").innerHTML =
+        " Date of birth cannot be in future";
+
+        document.getElementById("dob").classList.add("error");
+
+        valid = false;
+
+    }
+
+    else {
+
+        document.getElementById("dob").classList.add("valid");
+
+    }
+
+
+    if (!gender) {
+
+        document.getElementById("genderError").innerHTML =
+        " Please select gender";
+
+        valid = false;
+
+    }
+
+
+    if (address === "") {
+
+        document.getElementById("addressError").innerHTML =
+        " Please enter address";
+
+        document.getElementById("address").classList.add("error");
+
+        valid = false;
+
+    }
+
+    else {
+
+        document.getElementById("address").classList.add("valid");
+
+    }
+
+
+    if (blood === "") {
+
+        document.getElementById("bloodError").innerHTML =
+        " Please select blood group";
+
+        document.getElementById("bloodGroup").classList.add("error");
+
+        valid = false;
+
+    }
+
+    else {
+
+        document.getElementById("bloodGroup").classList.add("valid");
+
+    }
+
+
+    if (department === "") {
+
+        document.getElementById("departmentError").innerHTML =
+        " Please select department";
+
+        document.getElementById("department").classList.add("error");
+
+        valid = false;
+
+    }
+
+    else {
+
+        document.getElementById("department").classList.add("valid");
+
+    }
+
+
+    if (registrationDate === "") {
+
+        document.getElementById("registrationError").innerHTML =
+        " Please select registration date";
+
+        document.getElementById("registrationDate").classList.add("error");
+
+        valid = false;
+
+    }
+
+    else if (registrationDate > today) {
+
+        document.getElementById("registrationError").innerHTML =
+        " Registration date cannot be in future";
+
+        document.getElementById("registrationDate").classList.add("error");
+
+        valid = false;
+
+    }
+
+    else {
+
+        document.getElementById("registrationDate").classList.add("valid");
+
+    }
+
+
+    if (valid) {
+
+        alert("Patient registration successful!");
+
+        form.reset();
+
+        clearForm();
+
+    }
+
+});
+
+
+function clearForm() {
+
+    document.querySelectorAll("span").forEach(function(span) {
+        span.innerHTML = "";
+    });
+
+    document.querySelectorAll("input, textarea, select").forEach(function(field) {
+        field.classList.remove("error");
+        field.classList.remove("valid");
+    });
+
+}
+
+
+form.addEventListener("reset", function() {
+
+    setTimeout(function() {
+        clearForm();
+    }, 10);
+
+});
+
+</script>
+
+</body>
+
+</html>
+```
